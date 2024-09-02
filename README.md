@@ -1,7 +1,7 @@
 
 # TP Cinta transportadora
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+
 Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador LPC845-BRK programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
 
 ### Funcionalidad del Sistema
