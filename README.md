@@ -2,18 +2,23 @@
 # TP Cinta transportadora
 
 
-Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador LPC845-BRK programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
+Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador Atmega328p programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
+
+
+![Diagrama1](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/Resources/Diagrama1.jpeg)
+
+
 
 ### Funcionalidad del Sistema
-El sistema utiliza sensores que identifican el color de los productos a medida que avanzan por la cinta transportadora. Según el color detectado, el microcontrolador activará mecanismos que desvían los productos hacia contenedores designados para cada color.
+El sistema utiliza sensores que identifican el color de los productos a medida que avanzan por la cinta transportadora. Según el color detectado, el microcontrolador activará mecanismos que desvían los productos hacia contenedores designados para cada color. En caso de ser un color no permitido, este sistema detectara un error, encendiendo un led rojo y designará ese producto en el contenedor de "otros colores".
 
 ### Características del Proyecto
 #### Detección de Colores: 
-Los sensores de color integrados en la cinta transportadora permiten identificar diferentes colores, como rojo, verde, y azul.
+Los sensores de color integrados en la cinta transportadora permiten identificar los colores, rojo, verde, amarillo, azul, blanco y negro.
 #### Control del Movimiento: 
 El microcontrolador gestiona el movimiento de la cinta transportadora, asegurando que los productos avancen de manera controlada y sean clasificados correctamente.
 #### Desvío Automático: 
-Una vez detectado el color, el sistema activa las entradas de los filtros de productos.
+Una vez detectado el color, el sistema activa las entradas de los filtros de productos para redirigirlos a los contenedores designados.
 
 
 ## Authors
@@ -23,18 +28,16 @@ Una vez detectado el color, el sistema activa las entradas de los filtros de pro
 
 ## Features
 
-- Deteccion de 5 colores
-- Cuatro salidas
-- 3 Modos de filtro
+- Deteccion de 6 colores
+- Deteccion de colores no registrados
+- Personalización de salidas de contenedores
 
 
-## Usage/Examples
 
-```csharp
-import Component from 'my-project'
 
-function App() {
-  return <Component />
-}
-```
+## Related
+
+Relacionados:
+
+[Datasheet ATmega328p](https://www.alldatasheet.com/datasheet-pdf/pdf/313218/ATMEL/ATmega328P.html)
 
