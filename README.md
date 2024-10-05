@@ -5,7 +5,7 @@
 Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador Atmega328p programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
 
 
-![Diagrama1](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/Assets/Diagrama1.jpeg)
+![Diagrama1](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/assets/Diagrama1.jpeg)
 
 
 
