@@ -39,6 +39,6 @@ Una vez detectado el color, el sistema activa las entradas de los filtros de pro
 
 Relacionados:
 
-[Datasheet ATmega128](https://www.alldatasheet.com/datasheet-pdf/pdf/56260/ATMEL/ATMEGA128.html),
-[Datasheet TCS3200](https://www.alldatasheet.com/datasheet-pdf/pdf/560507/AMSCO/TCS3200.html)
+- [Datasheet ATmega128](https://www.alldatasheet.com/datasheet-pdf/pdf/56260/ATMEL/ATMEGA128.html),
+- [Datasheet TCS3200](https://www.alldatasheet.com/datasheet-pdf/pdf/560507/AMSCO/TCS3200.html)
 
