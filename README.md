@@ -2,7 +2,7 @@
 # TP Cinta transportadora
 
 
-Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador Atmega328p programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
+Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador Atmega128 programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
 
 
 ![Diagrama1](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/assets/Diagrama05.jpeg)
@@ -10,7 +10,7 @@ Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste
 
 
 ### Funcionalidad del Sistema
-El sistema utiliza sensores que identifican el color de los productos a medida que avanzan por la cinta transportadora. Según el color detectado, el microcontrolador activará mecanismos que desvían los productos hacia contenedores designados para cada color. En caso de ser un color no permitido, este sistema detectara un error, encendiendo un led rojo y designará ese producto en el contenedor de "otros colores".
+El sistema utiliza sensores TCS3200 que identifican el color de los productos a medida que avanzan por la cinta transportadora. Según el color detectado, el microcontrolador activará mecanismos que desvían los productos hacia contenedores designados para cada color. En caso de ser un color no permitido, este sistema detectara un error, encendiendo un led rojo y designará ese producto en el contenedor de "otros colores".
 
 ### Características del Proyecto
 #### Detección de Colores: 
@@ -39,5 +39,6 @@ Una vez detectado el color, el sistema activa las entradas de los filtros de pro
 
 Relacionados:
 
-[Datasheet ATmega328p](https://www.alldatasheet.com/datasheet-pdf/pdf/313218/ATMEL/ATmega328P.html)
+[Datasheet ATmega128](https://www.alldatasheet.com/datasheet-pdf/pdf/56260/ATMEL/ATMEGA128.html)
+[Datasheet TCS3200](https://www.alldatasheet.com/datasheet-pdf/pdf/560507/AMSCO/TCS3200.html)
 
