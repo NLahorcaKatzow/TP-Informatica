@@ -2,7 +2,7 @@
 
 uint16_t f_leer_sens_color();
 void f_error_archivo();
-int f_tolerancia();
+int f_tolerancia(uint16_t color, uint8_t tolerancia, uint8_t current_color);
 config f_load_config_txt(const char *filename, void(*puntero)(void));
 
 
@@ -43,10 +43,6 @@ config f_load_config_txt(const char *filename, void (*error_func)(void)) {
            &cfg.colores[0], &cfg.colores[1], &cfg.colores[2], 
            &cfg.colores[3], &cfg.colores[4], &cfg.colores[5]);
     fscanf(file, "tolerancia: %hhu\n", &cfg.tolerancia);
-
-    int contenedores;
-    fscanf(file, "contenedores: %d\n", &contenedores);
-    cfg.contenedores = (salidas_c)contenedores;
 
     int indice_salida;
     fscanf(file, "indice_salida: %d\n", &indice_salida);

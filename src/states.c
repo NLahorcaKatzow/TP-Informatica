@@ -1,4 +1,6 @@
 #include "libreria.h"
+#include "funcs.c"
+
 void f_espera(estados current_estado, config *config);
 void f_transportar(estados current_estado, config *config);
 void f_clasificar(estados current_estado, config *config);
@@ -27,7 +29,7 @@ void f_clasificar(estados current_estado, config *config){
     printf("Clasificando\n");
     //leer datos de la cinta
     //accionar el algoritmo para clasificar
-    for (size_t i = 0; i < 6; i++)
+    for (int i = 0; i < 6; i++)
     {
         if(f_tolerancia(f_leer_sens_color(), config->tolerancia, config->colores[i])){
             config->indice_salida = i;

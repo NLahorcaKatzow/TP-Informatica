@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "libreria.h"
 #include "states.c"
-#include "funcs.c"
 
 int main(int argc, char const *argv[])
 {
