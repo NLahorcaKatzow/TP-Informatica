@@ -21,9 +21,8 @@ typedef enum {
   S3,
   S4,
   S5,
-  ERROR
+  ERRORC
 }salidas_c;
-
 
 //datos 
 typedef struct {
@@ -37,6 +36,7 @@ typedef struct {
 
 config f_inicio(void); // lee el archivo de configuración y carga las variables.
 
+//definiciones
 
 #define SENS_IR_PORT avr_GPIO_C
 
@@ -46,7 +46,36 @@ config f_inicio(void); // lee el archivo de configuración y carga las variables
 #define SENS_IR_REDIR_PIN avr_GPIO_PIN_1
 #define SENS_IR_REDIR avr_GPIOC_IN_1
 
+#define BUTTON_PIN avr_GPIO_PIN_2
+#define BUTTON avr_GPIOC_IN_2
+
+#define MOTOR_PORT avr_GPIO_A
+
+#define MOTOR_TRANS_PIN avr_GPIO_PIN_0
+#define MOTOR_TRANS avr_GPIOA_OUT_0
+
+#define MOTOR_REDIR_PIN avr_GPIO_PIN_1
+#define MOTOR_REDIR avr_GPIOA_OUT_1
+
+
+
 #define TCS3200 avr_ADC_canal0
+
+#define HIGH 1
+#define LOW 0
+
+void i_set_motor_redir(int);
+void i_set_motor_trans(int);
+
+
+void i_set_motor_redir(int value){
+  MOTOR_REDIR = value;
+}
+void i_set_motor_trans(int value){
+  MOTOR_TRANS = value;
+}
+
+
 
 
 
