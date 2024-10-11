@@ -2,7 +2,7 @@
 # TP Cinta transportadora
 
 
-Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador Atmega328p programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
+Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste en el desarrollo de un sistema de control para una cinta transportadora utilizando un microcontrolador Atmega128 programado en lenguaje C. El objetivo principal del proyecto es implementar un sistema de clasificación automática de productos según su color.
 
 
 ![Diagrama1](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/Resources/Diagrama1.jpeg)
@@ -10,7 +10,7 @@ Este trabajo práctico, correspondiente a la asignatura Informática 2, consiste
 
 
 ### Funcionalidad del Sistema
-El sistema utiliza sensores que identifican el color de los productos a medida que avanzan por la cinta transportadora. Según el color detectado, el microcontrolador activará mecanismos que desvían los productos hacia contenedores designados para cada color. En caso de ser un color no permitido, este sistema detectara un error, encendiendo un led rojo y designará ese producto en el contenedor de "otros colores".
+El sistema utiliza sensores TCS3200 que identifican el color de los productos a medida que avanzan por la cinta transportadora. Según el color detectado, el microcontrolador activará mecanismos que desvían los productos hacia contenedores designados para cada color. En caso de ser un color no permitido, este sistema detectara un error, encendiendo un led rojo y designará ese producto en el contenedor de "otros colores".
 
 ### Características del Proyecto
 #### Detección de Colores: 
