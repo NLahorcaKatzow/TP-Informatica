@@ -1,6 +1,8 @@
 #ifndef LIBRERIA
-#define LIBRERIA
+#define LIBRERIA 1
 #include <stdio.h>
+
+#include "avr_api.h"
 
 //estados
 typedef enum{
@@ -25,8 +27,8 @@ typedef enum {
 
 //datos 
 typedef struct {
-  char colores[6];    // lista de colores a detectar
-  int tolerancia;
+  uint8_t colores[6];    // lista de colores a detectar
+  uint8_t tolerancia;
   salidas_c contenedores;     // enum de salida de contenedores de los colores
   void (*error_func)(void); // Funcion de error en caso de no detectar colores
   salidas_c indice_salida; // indice a mover para redirigir
@@ -35,9 +37,16 @@ typedef struct {
 
 config f_inicio(void); // lee el archivo de configuración y carga las variables.
 
-int sensor_ir1 = 0; //0 low, 1 high
-int sensor_ir2 = 0; //0 low, 1 high
-int sensor_color = 0; //0-225 color (cambiar por un char en un futuro)
+
+#define SENS_IR_PORT avr_GPIO_C
+
+#define SENS_IR_TRANS_PIN avr_GPIO_PIN_0
+#define SENS_IR_TRANS avr_GPIOC_IN_0
+
+#define SENS_IR_REDIR_PIN avr_GPIO_PIN_1
+#define SENS_IR_REDIR avr_GPIOC_IN_1
+
+#define TCS3200 avr_ADC_canal0
 
 
 
