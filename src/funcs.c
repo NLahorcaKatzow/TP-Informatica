@@ -1,11 +1,5 @@
 #include "libreria.h"
 
-// Declaración de las funciones
-uint16_t f_leer_sens_color(); // Lee el valor del sensor de color
-void f_error_archivo();       // Muestra un error al cargar un archivo y termina el programa
-int f_tolerancia(uint16_t color, uint8_t tolerancia, uint8_t current_color); // Verifica si un color está dentro de una tolerancia
-config f_load_config_txt(const char *filename, void(*puntero)(void)); // Carga la configuración desde un archivo de texto
-
 // Implementación de las funciones
 
 // Función para leer el valor del sensor de color
@@ -15,8 +9,8 @@ uint16_t f_leer_sens_color() {
 
 // Función que se ejecuta si ocurre un error al cargar el archivo de configuración
 void f_error_archivo() {
-    printf("Error al cargar el archivo de configuracion\n");
-    exit(1); // Termina el programa con un código de error
+    //printf("Error al cargar el archivo de configuracion\n");
+    //exit(1); // Termina el programa con un código de error
 }
 
 // Función que verifica si una medida de color está dentro de la tolerancia permitida
@@ -34,8 +28,8 @@ int f_tolerancia(uint16_t color, uint8_t tolerancia, uint8_t current_color) {
 }
 
 // Función para cargar la configuración desde un archivo de texto
-config f_load_config_txt(const char *filename, void (*error_func)(void)) {
-    config cfg; // Se declara una estructura de tipo config
+config f_load_config_txt() {
+    /*config cfg; // Se declara una estructura de tipo config
     FILE *file = fopen(filename, "r"); // Abre el archivo en modo de lectura
     if (file == NULL) {
         perror("Error al abrir el archivo para lectura"); // Imprime un error si no se puede abrir el archivo
@@ -60,5 +54,40 @@ config f_load_config_txt(const char *filename, void (*error_func)(void)) {
     cfg.error_func = error_func;
 
     fclose(file); // Cierra el archivo
-    return cfg;   // Retorna la estructura de configuración cargada
+    return cfg;   // Retorna la estructura de configuración cargada*/
+
+
+    //Cargar variables de configuracion
+    config new_config;
+    new_config.colores[0] = 0;
+    new_config.colores[1] = 150;
+    new_config.colores[2] = 200;
+    new_config.colores[3] = 255;
+    new_config.colores[4] = 75;
+    new_config.colores[5] = 50;
+    new_config.tolerancia = 10;
+    new_config.contenedores = ESPERA;
+    new_config.indice_salida = 0;
+    return new_config; // Retorna la nueva estructura
+}
+
+
+void i_set_motor_redir(int value) {
+    if (value == HIGH) {
+        // Activa el motor de redirección
+        MOTOR_REDIR |= 1; //enciende el motor
+    } else {
+        // Desactiva el motor de redirección
+        MOTOR_REDIR &= ~1; // Apaga el motor
+    }
+}
+
+void i_set_motor_trans(int value) {
+    if (value == HIGH) {
+        // Activa el motor de transporte
+        MOTOR_TRANS |= 1; // Enciende el motor
+    } else {
+        // Desactiva el motor de transporte
+        MOTOR_TRANS &= ~1; // Apaga el motor
+    }
 }

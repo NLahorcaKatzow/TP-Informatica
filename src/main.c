@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include "libreria.h"
-#include "states.c"
+
+
 
 int main(int argc, char const *argv[])
 {
@@ -21,10 +21,13 @@ int main(int argc, char const *argv[])
 void f_init_avr(){
     //Inicializacion de pines de entrada de sensores de proximidad IR
     GpioInitStructure_AVR sensores_ir, motores;
+ 
+    AdcInitStructure_AVR tcs3200;
+
 
     sensores_ir.port = SENS_IR_PORT;
     sensores_ir.modo = avr_GPIO_mode_Input;
-    sensores_ir.pines = SENS_IR_TRANS_PIN | SENS_IR_REDIR_PIN;
+    sensores_ir.pines = SENS_IR_TRANS_PIN | SENS_IR_REDIR_PIN | BUTTON_PIN;
     init_gpio(sensores_ir);
 
     //Inicializacion de pin de salida para los motores
@@ -35,7 +38,6 @@ void f_init_avr(){
     init_gpio(motores);
 
     //Inicializacion de pin de entrada de sensor de color
-    AdcInitStructure_AVR tcs3200;
     tcs3200.mode = avr_ADC_MODE_Single_Conversion;  
     tcs3200.reference = avr_ADC_REF_Internal;
     tcs3200.resolution = avr_ADC_RES_10Bit;
