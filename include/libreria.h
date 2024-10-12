@@ -5,6 +5,7 @@
 
 //definiciones
 
+
 #define SENS_IR_PORT avr_GPIO_C
 
 #define SENS_IR_TRANS_PIN avr_GPIO_PIN_0

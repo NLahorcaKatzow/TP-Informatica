@@ -2,6 +2,41 @@
 
 // Implementación de las funciones
 
+void f_init_avr(){
+    //Inicializacion de pines de entrada de sensores de proximidad IR
+    GpioInitStructure_AVR sensores_ir, motores;
+    UartInitStructure uart;
+    AdcInitStructure_AVR tcs3200;
+
+
+    sensores_ir.port = SENS_IR_PORT;
+    sensores_ir.modo = avr_GPIO_mode_Input;
+    sensores_ir.pines = SENS_IR_TRANS_PIN | SENS_IR_REDIR_PIN | BUTTON_PIN;
+    init_gpio(sensores_ir);
+
+    //Inicializacion de pin de salida para los motores
+
+    motores.port = MOTOR_PORT;
+    motores.modo = avr_GPIO_mode_Output;
+    motores.pines = MOTOR_TRANS_PIN | MOTOR_REDIR_PIN;
+    init_gpio(motores);
+
+    //Inicializacion de pin de entrada de sensor de color
+    tcs3200.mode = avr_ADC_MODE_Single_Conversion;  
+    tcs3200.reference = avr_ADC_REF_Internal;
+    tcs3200.resolution = avr_ADC_RES_10Bit;
+    tcs3200.prescaler = avr_ADC_Prescaler_64;
+    tcs3200.channel = TCS3200;
+    init_adc(tcs3200);
+    
+    //Inicializacion  de entrada de uart
+    uart.baudrate = 9600;
+    uart.uart_port = avr_uart0;
+    init_uart_avr(uart);
+    
+}
+
+
 // Función para leer el valor del sensor de color
 uint16_t f_leer_sens_color() {
     return (uint16_t)leer_ADC(TCS3200); // Llama a la función para leer el sensor TCS3200
@@ -21,42 +56,15 @@ int f_tolerancia(uint16_t color, uint8_t tolerancia, uint8_t current_color) {
 
     // Verifica si el valor del color actual está dentro del rango de tolerancia
     if (current_color >= limiteInferior && current_color <= limiteSuperior) {
-        return 1; // La medida está dentro de la tolerancia
+        return HIGH; // La medida está dentro de la tolerancia
     } else {
-        return 0; // La medida no está dentro de la tolerancia
+        return LOW; // La medida no está dentro de la tolerancia
     }
 }
 
 // Función para cargar la configuración desde un archivo de texto
 config f_load_config_txt() {
-    /*config cfg; // Se declara una estructura de tipo config
-    FILE *file = fopen(filename, "r"); // Abre el archivo en modo de lectura
-    if (file == NULL) {
-        perror("Error al abrir el archivo para lectura"); // Imprime un error si no se puede abrir el archivo
-        error_func(); // Llama a la función de error proporcionada
-        return cfg;
-    }
-
-    // Lee los valores de "colores" desde el archivo de texto
-    fscanf(file, "colores: %hhu %hhu %hhu %hhu %hhu %hhu\n", 
-           &cfg.colores[0], &cfg.colores[1], &cfg.colores[2], 
-           &cfg.colores[3], &cfg.colores[4], &cfg.colores[5]);
-
-    // Lee el valor de "tolerancia" desde el archivo
-    fscanf(file, "tolerancia: %hhu\n", &cfg.tolerancia);
-
-    // Lee el valor de "indice_salida" y lo convierte al tipo `salidas_c`
-    int indice_salida;
-    fscanf(file, "indice_salida: %d\n", &indice_salida);
-    cfg.indice_salida = (salidas_c)indice_salida;
-
-    // Asigna la función de error proporcionada a `cfg.error_func`
-    cfg.error_func = error_func;
-
-    fclose(file); // Cierra el archivo
-    return cfg;   // Retorna la estructura de configuración cargada*/
-
-
+    //CAMBIAR LUEGO (TODO)
     //Cargar variables de configuracion
     config new_config;
     new_config.colores[0] = 0;
@@ -73,21 +81,9 @@ config f_load_config_txt() {
 
 
 void i_set_motor_redir(int value) {
-    if (value == HIGH) {
-        // Activa el motor de redirección
-        MOTOR_REDIR |= 1; //enciende el motor
-    } else {
-        // Desactiva el motor de redirección
-        MOTOR_REDIR &= ~1; // Apaga el motor
-    }
+    MOTOR_REDIR = value;
 }
 
 void i_set_motor_trans(int value) {
-    if (value == HIGH) {
-        // Activa el motor de transporte
-        MOTOR_TRANS |= 1; // Enciende el motor
-    } else {
-        // Desactiva el motor de transporte
-        MOTOR_TRANS &= ~1; // Apaga el motor
-    }
+    MOTOR_TRANS = value;
 }
