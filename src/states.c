@@ -54,8 +54,6 @@ void f_error(estados current_estado, config *config){
     //printf("Error\n");
     uart_puts("Error\n");
     config->indice_salida = ERRORC;
-    current_estado = REDIRIGIR; //
-
-    current_estado = ESPERA;
+    current_estado = REDIRIGIR; 
 }
 
