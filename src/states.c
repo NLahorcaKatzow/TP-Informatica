@@ -1,59 +1,60 @@
 #include "libreria.h"
 
-void f_espera(estados current_estado, config *config){
-    uart_puts("EnEspera\n");
-    //i_set_motor_redir(BUTTON);
-    if(BUTTON == HIGH) current_estado = TRANSPORTAR;
+estados f_espera(estados current_estado, config *current_config){
+    //uart_puts("EnEspera\n");
+    //i_set_motor_trans(BUTTON);
+    
+    if(BUTTON == HIGH) return f_cambiar_estado_a(TRANSPORTAR);
+    return ESPERA;
 }
 
-void f_transportar(estados current_estado, config *config){
+estados f_transportar(estados current_estado, config *current_config){
     //printf("Transportando\n");
-    uart_puts("Transportando\n");
+    //uart_puts("Transportando\n");
     //mover la cinta
     i_set_motor_trans(HIGH);
     //accionar el motor para mover cinta
     
     if(SENS_IR_TRANS == HIGH) {
-        i_set_motor_trans(LOW);
-        current_estado = CLASIFICAR;
+        return f_cambiar_estado_a(CLASIFICAR);
         }
+     return TRANSPORTAR;
 }
 
-void f_clasificar(estados current_estado, config *config){
+estados f_clasificar(estados current_estado, config *current_config){
     int i = 0;
     //printf("Clasificando\n");
-    uart_puts("Clasificando\n");
+    //uart_puts("Clasificando\n");
     //leer datos de la cinta
     //accionar el algoritmo para clasificar
     
     for (i = 0; i < 6; i++)
     {
-        if(f_tolerancia(f_leer_sens_color(), config->tolerancia, config->colores[i])){
-            config->indice_salida = i;
-            current_estado = REDIRIGIR;
-            return;
+        if(f_tolerancia(f_leer_sens_color(), current_config->tolerancia, current_config->colores[i])){
+            current_config->indice_salida = i;
+            return f_cambiar_estado_a(REDIRIGIR);
+            
             }
     }
-    current_estado = ERROR; //no encontro un color dentro de las especificaciones
-    
+    return f_cambiar_estado_a(ERROR); //no encontro un color dentro de las especificaciones
 }
 
-void f_redirigir(estados current_estado, config *config){
+estados f_redirigir(estados current_estado, config *current_config){
     //printf("Redirigiendo\n");
-    uart_puts("Redirigiendo\n");
+    //uart_puts("Redirigiendo\n");
     //accionar el motor para mover la cinta de redireccion
-    i_set_motor_redir(HIGH);
+    seleccionar_motor_redir(current_config->indice_salida, HIGH);
     if(SENS_IR_REDIR != 0) {
-        i_set_motor_redir(LOW);
-        current_estado = TRANSPORTAR;
+        return f_cambiar_estado_a(TRANSPORTAR);
         }
-    
+    return REDIRIGIR;
 }
 
-void f_error(estados current_estado, config *config){
+estados f_error(estados current_estado, config *current_config){
     //printf("Error\n");
     uart_puts("Error\n");
-    config->indice_salida = ERRORC;
-    current_estado = REDIRIGIR; 
+    current_config->indice_salida = ERRORC;
+    return f_cambiar_estado_a(REDIRIGIR); //retorna la nueva configuracion para volver a redirigir
+
 }
 
