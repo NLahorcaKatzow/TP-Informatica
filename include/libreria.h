@@ -1,36 +1,7 @@
 #ifndef LIBRERIA
 #define LIBRERIA
 
-#include "avr_api.h"
-
-//definiciones
-
-
-#define SENS_IR_PORT avr_GPIO_C
-
-#define SENS_IR_TRANS_PIN avr_GPIO_PIN_0
-#define SENS_IR_TRANS avr_GPIOC_IN_0
-
-#define SENS_IR_REDIR_PIN avr_GPIO_PIN_1
-#define SENS_IR_REDIR avr_GPIOC_IN_1
-
-#define BUTTON_PIN avr_GPIO_PIN_2
-#define BUTTON avr_GPIOC_IN_2
-
-#define MOTOR_PORT avr_GPIO_A
-
-#define MOTOR_TRANS_PIN avr_GPIO_PIN_0
-#define MOTOR_TRANS avr_GPIOA_OUT_0
-
-#define MOTOR_REDIR_PIN avr_GPIO_PIN_1
-#define MOTOR_REDIR avr_GPIOA_OUT_1
-
-
-
-#define TCS3200 avr_ADC_canal0
-
-#define HIGH 1
-#define LOW 0
+#include "conf.h"
 
 
 //estados
@@ -70,14 +41,16 @@ uint16_t f_leer_sens_color(); // Lee el valor del sensor de color
 void f_error_archivo();       // Muestra un error al cargar un archivo y termina el programa
 int f_tolerancia(uint16_t color, uint8_t tolerancia, uint8_t current_color); // Verifica si un color está dentro de una tolerancia
 config f_load_config_txt(); // Carga la configuración desde un archivo de texto
+estados f_cambiar_estado_a(estados new_estado); //cambia el valor de un estado al transicionar
+void seleccionar_motor_redir(int motor_id, int value); //selecciona el motor de redireccion y lo activa;
 
 
 //funciones de estado
-void f_espera(estados current_estado, config *config);
-void f_transportar(estados current_estado, config *config);
-void f_clasificar(estados current_estado, config *config);
-void f_redirigir(estados current_estado, config *config);
-void f_error(estados current_estado, config *config);
+estados f_espera(estados current_estado, config *config);
+estados f_transportar(estados current_estado, config *config);
+estados f_clasificar(estados current_estado, config *config);
+estados f_redirigir(estados current_estado, config *config);
+estados f_error(estados current_estado, config *config);
 
 
 

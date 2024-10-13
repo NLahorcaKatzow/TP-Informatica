@@ -1,4 +1,5 @@
 #include "libreria.h"
+#include "conf.h"
 
 // Implementación de las funciones
 
@@ -18,7 +19,7 @@ void f_init_avr(){
 
     motores.port = MOTOR_PORT;
     motores.modo = avr_GPIO_mode_Output;
-    motores.pines = MOTOR_TRANS_PIN | MOTOR_REDIR_PIN;
+    motores.pines = MOTOR_TRANS_PIN | MOTOR_REDIR1_PIN | MOTOR_REDIR2_PIN | MOTOR_REDIR3_PIN | MOTOR_REDIR4_PIN | MOTOR_REDIR5_PIN | MOTOR_REDIR6_PIN;
     init_gpio(motores);
 
     //Inicializacion de pin de entrada de sensor de color
@@ -34,12 +35,14 @@ void f_init_avr(){
     uart.uart_port = avr_uart0;
     init_uart_avr(uart);
     
+    
+    sei();
 }
 
 
 // Función para leer el valor del sensor de color
 uint16_t f_leer_sens_color() {
-    return (uint16_t)leer_ADC(TCS3200); // Llama a la función para leer el sensor TCS3200
+    return (uint16_t)(leer_ADC(TCS3200)); // Llama a la función para leer el sensor TCS3200
 }
 
 // Función que se ejecuta si ocurre un error al cargar el archivo de configuración
@@ -79,11 +82,48 @@ config f_load_config_txt() {
     return new_config; // Retorna la nueva estructura
 }
 
-
-void i_set_motor_redir(int value) {
-    MOTOR_REDIR = value;
-}
-
 void i_set_motor_trans(int value) {
     MOTOR_TRANS = value;
+}
+
+estados f_cambiar_estado_a(estados new_estado){
+    seleccionar_motor_redir(-1, LOW);
+    i_set_motor_trans(LOW);
+    uart_puts("cambiando estado"); 
+    
+    return new_estado;
+}
+
+void seleccionar_motor_redir(int motor_id, int value) {
+    
+    if(motor_id == -1){		//si id es -1, solamente va a desactivar todos los motores
+    SELECT_MOTOR_OUT(1) = SELECT_MOTOR_OUT(2) = SELECT_MOTOR_OUT(3) = SELECT_MOTOR_OUT(4) = SELECT_MOTOR_OUT(5) = SELECT_MOTOR_OUT(6) = LOW;
+    return;
+    } 
+    
+    switch (motor_id + 1) {
+        case 1:
+            SELECT_MOTOR_OUT(1) = value;
+            break;
+
+        case 2:
+            SELECT_MOTOR_OUT(2) = value;
+            break;
+
+        case 3:
+            SELECT_MOTOR_OUT(3) = value;
+            break;
+
+        case 4:
+            SELECT_MOTOR_OUT(4) = value;
+            break;
+
+        case 5:
+            SELECT_MOTOR_OUT(5) = value;
+            break;
+	default:
+	    //en caso haber una falla con el id, activa el motor6, el motor de errores de clasificacion
+	    SELECT_MOTOR_OUT(6) = HIGH;
+	break;
+    }
 }
