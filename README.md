@@ -34,7 +34,7 @@ Una vez detectado el color, el sistema activa las entradas de los filtros de pro
 
 ## SCHEMATICS
 
-![Schematics](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/assets/Schematics.jpeg)
+![Schematics](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/assets/Schematics.jpg)
 
 ## Related
 
