@@ -1,7 +1,7 @@
 #include "libreria.h"
 #include "conf.h"
 
-// Implementación de las funciones
+// ImplementaciOn de las funciones
 
 void f_init_avr(){
     //Inicializacion de pines de entrada de sensores de proximidad IR
@@ -25,7 +25,7 @@ void f_init_avr(){
     //Inicializacion de pin de entrada de sensor de color
     tcs3200.mode = avr_ADC_MODE_Single_Conversion;  
     tcs3200.reference = avr_ADC_REF_Internal;
-    tcs3200.resolution = avr_ADC_RES_10Bit;
+    tcs3200.resolution = avr_ADC_RES_10Bit; 
     tcs3200.prescaler = avr_ADC_Prescaler_64;
     tcs3200.channel = TCS3200;
     init_adc(tcs3200);
@@ -40,33 +40,33 @@ void f_init_avr(){
 }
 
 
-// Función para leer el valor del sensor de color
+// FunciÃ³n para leer el valor del sensor de color
 uint16_t f_leer_sens_color() {
-    return (uint16_t)(leer_ADC(TCS3200)); // Llama a la función para leer el sensor TCS3200
+    return (uint16_t)(leer_ADC(TCS3200)); // Llama a la funciÃ³n para leer el sensor TCS3200
 }
 
-// Función que se ejecuta si ocurre un error al cargar el archivo de configuración
+// FunciÃ³n que se ejecuta si ocurre un error al cargar el archivo de configuraciÃ³n
 void f_error_archivo() {
     //printf("Error al cargar el archivo de configuracion\n");
-    //exit(1); // Termina el programa con un código de error
+    //exit(1); // Termina el programa con un cÃ³digo de error
 }
 
-// Función que verifica si una medida de color está dentro de la tolerancia permitida
+// FunciÃ³n que verifica si una medida de color estÃ¡ dentro de la tolerancia permitida
 int f_tolerancia(uint16_t color, uint8_t tolerancia, uint8_t current_color) {
-    // Calcula el límite inferior y superior para verificar si el color está dentro de la tolerancia
+    // Calcula el lÃ­mite inferior y superior para verificar si el color estÃ¡ dentro de la tolerancia
     int limiteInferior = color - tolerancia;
     int limiteSuperior = color + tolerancia;
 
-    // Verifica si el valor del color actual está dentro del rango de tolerancia
+    // Verifica si el valor del color actual estÃ¡ dentro del rango de tolerancia
     if (current_color >= limiteInferior && current_color <= limiteSuperior) {
-        return HIGH; // La medida está dentro de la tolerancia
+        return HIGH; // La medida estÃ¡ dentro de la tolerancia
     } else {
-        return LOW; // La medida no está dentro de la tolerancia
+        return LOW; // La medida no estÃ¡ dentro de la tolerancia
     }
 }
 
-// Función para cargar la configuración desde un archivo de texto
-config f_load_config_txt() {
+// FunciÃ³n para cargar la configuraciÃ³n desde un archivo de texto
+config f_load_init_data() {
     //CAMBIAR LUEGO (TODO)
     //Cargar variables de configuracion
     config new_config;
@@ -82,13 +82,13 @@ config f_load_config_txt() {
     return new_config; // Retorna la nueva estructura
 }
 
-void i_set_motor_trans(int value) {
+void f_set_motor_trans(int value) {
     MOTOR_TRANS = value;
 }
 
 estados f_cambiar_estado_a(estados new_estado){
     seleccionar_motor_redir(-1, LOW);
-    i_set_motor_trans(LOW);
+    f_set_motor_trans(LOW);
     uart_puts("cambiando estado"); 
     
     return new_estado;
@@ -126,4 +126,40 @@ void seleccionar_motor_redir(int motor_id, int value) {
 	    SELECT_MOTOR_OUT(6) = HIGH;
 	break;
     }
+}
+
+estados f_clasificar(config *current_config){
+    int i = 0;
+    //printf("Clasificando\n");
+    //uart_puts("Clasificando\n");
+    //leer datos de la cinta
+    //accionar el algoritmo para clasificar
+    
+    for (i = 0; i < 6; i++)
+    {
+        if(f_tolerancia(f_leer_sens_color(), current_config->tolerancia, current_config->colores[i])){
+            current_config->indice_salida = i;
+            return f_cambiar_estado_a(REDIRIGIR);
+            }
+    }
+    return f_error(current_config);
+}
+
+
+estados f_error(config *current_config){
+    //printf("Error\n");
+    uart_puts("Error\n");
+    current_config->indice_salida = ERRORC;
+    return f_cambiar_estado_a(REDIRIGIR); //retorna la nueva configuracion para volver a redirigir
+
+}
+
+int f_validate_sens_ir_trans(){
+    return SENS_IR_TRANS == HIGH;
+}
+int f_validate_sens_ir_redir(){
+    return SENS_IR_REDIR == HIGH;
+}
+int f_validate_button(){
+    return BUTTON == HIGH;
 }
