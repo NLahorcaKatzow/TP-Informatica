@@ -8,9 +8,7 @@
 typedef enum{
   ESPERA,
   TRANSPORTAR,
-  CLASIFICAR,
-  REDIRIGIR,
-  ERROR
+  REDIRIGIR
 }estados;
 
 //salidas
@@ -36,21 +34,25 @@ typedef struct {
 //funciones
 void f_init_avr();
 void i_set_motor_redir(int i);
-void i_set_motor_trans(int i);
+void f_set_motor_trans(int i);
 uint16_t f_leer_sens_color(); // Lee el valor del sensor de color
 void f_error_archivo();       // Muestra un error al cargar un archivo y termina el programa
 int f_tolerancia(uint16_t color, uint8_t tolerancia, uint8_t current_color); // Verifica si un color está dentro de una tolerancia
-config f_load_config_txt(); // Carga la configuración desde un archivo de texto
+config f_load_init_data(); // Carga la configuración desde un archivo de texto
 estados f_cambiar_estado_a(estados new_estado); //cambia el valor de un estado al transicionar
 void seleccionar_motor_redir(int motor_id, int value); //selecciona el motor de redireccion y lo activa;
+estados f_clasificar(config *config); //funcion de clasificacion de productos
+estados f_error(config *config); //funcion error 
+int f_validate_sens_ir_trans();
+int f_validate_sens_ir_redir();
+int f_validate_button();
+
 
 
 //funciones de estado
 estados f_espera(estados current_estado, config *config);
 estados f_transportar(estados current_estado, config *config);
-estados f_clasificar(estados current_estado, config *config);
 estados f_redirigir(estados current_estado, config *config);
-estados f_error(estados current_estado, config *config);
 
 
 
