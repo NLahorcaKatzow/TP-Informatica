@@ -37,6 +37,10 @@ Una vez detectado el color, el sistema activa las entradas de los filtros de pro
 ![Schematics](https://github.com/NLahorcaKatzow/TP-Informatica/blob/main/assets/Schematics.jpg)
 
 ## Related
+- [Prueba de sensor con dos colores](https://youtu.be/ZTfReZvQ5Xo)
+- [prueba de sensor cuando no detecta colores](https://youtu.be/FivXEO_Kzj8)
+
+## Related
 
 Relacionados:
 
